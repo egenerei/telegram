@@ -1,0 +1,8 @@
+services:
+  tele:
+    build: .
+    container_name: tele
+    restart: unless-stopped
+    env_file: "token.env"
+    volumes:
+    - ./downloads:/app/downloads
