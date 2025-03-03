@@ -13,16 +13,16 @@ services:
       - "8080:80"
     volumes:
       - ./nginx_conf/nginx.conf:/etc/nginx/nginx.conf
-      - ./downloads:/usr/share/nginx/html/videos
-  icecast:
-    image: tlan16/icecast
-    container_name: icecast
-    ports:
-    - 8000:8000
-  ices:
-    image: ./ices2/.
-    container_name: ices2
-    volumes:
-      - ./ices2/ices_playlist.xml:/etc/ices2/
-      - ./dowloads/audio:/var/www/ices2/audio
+      - ./downloads/videos:/usr/share/nginx/html/videos
+  # icecast:
+  #   image: tlan16/icecast
+  #   container_name: icecast
+  #   ports:
+  #   - 8000:8000
+  # ices:
+  #   build: ./ices2/.
+  #   container_name: ices2
+  #   volumes:
+  #     - ./ices2/ices_playlist.xml:/etc/ices2/
+  #     - ./downloads/audio:/var/www/ices2/audio
 
