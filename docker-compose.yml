@@ -3,17 +3,22 @@ services:
     build: ./python/.
     container_name: tele
     restart: unless-stopped
-    env_file: "python/token.env"
+    env_file: 
+      - "python/token.env"
+      - ".env"
     volumes:
     - ./downloads:/app/downloads
+
   nginx:
     image: nginx:latest
     container_name: nginx
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./nginx_conf/nginx.conf:/etc/nginx/nginx.conf
       - ./downloads/videos:/usr/share/nginx/html/videos
+    networks:
+      - net
 
   ffmpeg:
     build: ./ffmpeg/.
@@ -29,12 +34,8 @@ services:
     restart: always
     ports:
       - 8000:8000
-    environment:
-      - ICECAST_SOURCE_PASSWORD=sourcepass
-      - ICECAST_ADMIN_PASSWORD=bbb
-      - ICECAST_PASSWORD=ccc
-      - ICECAST_RELAY_PASSWORD=ddd
-      - ICECAST_HOSTNAME=localhost
+    env_file: 
+      - "icecast/icecast.env"
     networks:
       - net
 

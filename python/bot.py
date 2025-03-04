@@ -6,6 +6,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 
 # Retrieve the bot token from environment variables
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+DOMAIN = os.getenv("DOMAIN")
 
 # Path to store downloaded videos
 SAVE_PATH_VIDEOS = "downloads/videos/"
@@ -20,13 +21,11 @@ async def start(update: Update, context: CallbackContext):
     await update.message.reply_text("Send me a YouTube link, and I'll download the video for you!")
 
 # Function to handle messages containing YouTube URLs
-async def download_video(update: Update, context: CallbackContext):
+async def download(update: Update, context: CallbackContext):
     url = update.message.text  # Get the URL from the user's message
     chat_id = update.message.chat_id  # Get the chat ID
     option = url[:3]
     url = url[3:]
-
-    await update.message.reply_text(option)
 
     # Check if the message contains a YouTube URL
     if "youtube.com" in url or "youtu.be" in url:
@@ -56,7 +55,13 @@ async def download_video(update: Update, context: CallbackContext):
                 info = ydl.extract_info(url, download=True)  # Extract video info and download
                 file_path = ydl.prepare_filename(info)  # Get the downloaded file path
 
-            await update.message.reply_text("Download complete! Uploading...")
+            
+            if option == "/dv":
+                await update.message.reply_text("Download complete! Here is your link:")
+                await update.message.reply_text("http://" + DOMAIN + "/videos/" + file_hash + '.mp4')
+            if option == "/da":
+                await update.message.reply_text("Your song has been added to the radio! Here is your link:")
+                await update.message.reply_text("http://" + DOMAIN + "/radio")
 
         except Exception as e:
             # Handle errors and notify the user
@@ -73,8 +78,8 @@ def main():
 
     # Add handlers for bot commands and messages
     app.add_handler(CommandHandler("start", start))  # Handle /start command
-    app.add_handler(CommandHandler("dv", download_video))  # Handle YouTube link messages
-    app.add_handler(CommandHandler("da", download_video))  # Handle YouTube link messages
+    app.add_handler(CommandHandler("dv", download))  # Handle YouTube link messages
+    app.add_handler(CommandHandler("da", download))  # Handle YouTube link messages
 
     print("Bot is running...")
     app.run_polling()  # Start polling for new messages
