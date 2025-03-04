@@ -30,6 +30,7 @@
       <hostname>icecast</hostname>
       <port>8000</port>
       <password>sourcepass</password>
+      <username>source</username>
       <!-- Mount point on the Icecast server -->
       <mount>/radio</mount>
       <yp>1</yp>

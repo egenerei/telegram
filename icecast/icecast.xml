@@ -1,7 +1,7 @@
 <icecast>
     <limits>
         <clients>10</clients>
-        <sources>1</sources>
+        <sources>2</sources>
     </limits>
 
     <authentication>
