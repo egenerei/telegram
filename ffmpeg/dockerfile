@@ -1,0 +1,23 @@
+# Use Ubuntu as the base image
+FROM ubuntu:latest
+
+# Set non-interactive mode for package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install dependencies: FFmpeg and inotify-tools for file monitoring
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    inotify-tools \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy the conversion script into the container
+COPY convert.sh /app/convert.sh
+
+# Give execution permission to the script
+RUN chmod +x /app/convert.sh
+
+# Set entrypoint to run the script
+CMD ["/app/convert.sh"]

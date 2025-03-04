@@ -23,8 +23,11 @@ async def start(update: Update, context: CallbackContext):
 async def download_video(update: Update, context: CallbackContext):
     url = update.message.text  # Get the URL from the user's message
     chat_id = update.message.chat_id  # Get the chat ID
-
+    option = url[:3]
     url = url[3:]
+
+    await update.message.reply_text(option)
+
     # Check if the message contains a YouTube URL
     if "youtube.com" in url or "youtu.be" in url:
         await update.message.reply_text("Downloading video, please wait...")
@@ -36,9 +39,16 @@ async def download_video(update: Update, context: CallbackContext):
         file_hash = generate_md5_hash(url)
         
         # Define yt-dlp options for downloading
-        ydl_opts = {
-            'outtmpl': SAVE_PATH_VIDEOS + file_hash + '.%(ext)s',  # Output filename using MD5 hash
-        }
+        
+        if option == "/dv":
+            ydl_opts = {
+                'outtmpl': SAVE_PATH_VIDEOS + file_hash + '.%(ext)s',  # Output filename using MD5 hash
+            }
+        if option == "/da":
+            ydl_opts = {
+                'outtmpl': SAVE_PATH_AUDIO + file_hash + '.%(ext)s',  # Output filename using MD5 hash
+            }
+
 
         try:
             # Use yt-dlp to download the video
@@ -56,52 +66,6 @@ async def download_video(update: Update, context: CallbackContext):
         await update.message.reply_text("Please send a valid YouTube link.")
 
 
-    # Function to handle messages containing YouTube URLs and download audio
-async def download_audio(update: Update, context: CallbackContext):
-    url = update.message.text  # Get and clean the URL from the user's message
-    chat_id = update.message.chat_id   # Get the chat ID
-
-    url = url[3:]  # Trim the first 3 characters if needed
-
-    # Check if the message contains a YouTube URL
-    if "youtube.com" in url or "youtu.be" in url:
-        await update.message.reply_text("Downloading audio, please wait...")
-
-        # Ensure the downloads folder exists
-        os.makedirs(SAVE_PATH_AUDIO, exist_ok=True)
-
-        # Generate an MD5 hash for the filename
-        file_hash = generate_md5_hash(url)
-        
-        # Define yt-dlp options for downloading audio
-        ydl_opts = {
-            'format': 'bestaudio/best',  # Select best available audio format
-            'outtmpl': SAVE_PATH_AUDIO + file_hash + '.%(ext)s',  # Output filename using MD5 hash
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',  # Convert to standard audio format
-                'preferredcodec': 'mp3',  # Convert to MP3
-                'preferredquality': '192',  # Set quality to 192kbps
-            }],
-        }
-
-        try:
-            # Use yt-dlp to download the audio
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url, download=True)  # Extract info and download
-                file_path = ydl.prepare_filename(info)  # Get the original downloaded file path
-                file_path = os.path.splitext(file_path)[0] + ".mp3"  # Ensure MP3 extension
-
-            await update.message.reply_text("Download complete! Uploading...")
-
-        except Exception as e:
-            # Handle errors and notify the user
-            await update.message.reply_text(f"Error: {str(e)}")
-    else:
-        # Inform the user if the URL is not a valid YouTube link
-        await update.message.reply_text("Please send a valid YouTube link.")
-
-
-
 # Main function to run the bot
 def main():
     # Create a Telegram bot application instance
@@ -110,7 +74,7 @@ def main():
     # Add handlers for bot commands and messages
     app.add_handler(CommandHandler("start", start))  # Handle /start command
     app.add_handler(CommandHandler("dv", download_video))  # Handle YouTube link messages
-    app.add_handler(CommandHandler("da", download_audio))  # Handle YouTube link messages
+    app.add_handler(CommandHandler("da", download_video))  # Handle YouTube link messages
 
     print("Bot is running...")
     app.run_polling()  # Start polling for new messages
