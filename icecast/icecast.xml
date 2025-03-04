@@ -1,0 +1,23 @@
+<icecast>
+    <limits>
+        <clients>10</clients>
+        <sources>1</sources>
+    </limits>
+
+    <authentication>
+        <admin-user>admin</admin-user>
+        <admin-password>hackme</admin-password>
+        <source-password>sourcepass</source-password>
+    </authentication>
+
+    <listen-socket>
+        <port>8000</port>
+    </listen-socket>
+
+    <fileserve>1</fileserve>
+
+    <mount>
+        <mount-name>/radio</mount-name>
+        <password>sourcepass</password>
+    </mount>
+</icecast>

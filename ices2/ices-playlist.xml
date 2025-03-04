@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ices>
+  <!-- Logging Configuration -->
+  <logpath>/var/log/ices2</logpath>
+  <logfile>ices.log</logfile>
+  <loglevel>3</loglevel>
+
+  <!-- Stream Configuration -->
+  <stream>
+    <metadata>
+      <name>jreypri1705</name>
+      <genre>Various</genre>
+      <description>Live!</description>
+    </metadata>
+
+    <input>
+        <module>playlist</module>
+        <param name="type">basic</param>
+        <param name="file">/etc/ices2/audio/converted_files.txt</param>
+        <!-- Random play -->
+        <param name="random">0</param>
+        <!-- If the playlist is updated, start from the beginning -->
+        <param name="restart-after-reread">0</param>
+        <!-- If set to 1, play once and then stop -->
+        <param name="once">0</param>
+    </input>
+
+    <instance>
+      <!-- Information to connect to the Icecast server -->
+      <hostname>icecast</hostname>
+      <port>8000</port>
+      <password>sourcepass</password>
+      <!-- Mount point on the Icecast server -->
+      <mount>/radio</mount>
+      <yp>1</yp>
+      <name>jreypri1705</name>
+      <genre>Various</genre>
+      <description>Live!</description>
+
+      <reconnectdelay>2</reconnectdelay>
+      <reconnectattempts>5</reconnectattempts>
+
+      <!-- 1 to make it public -->
+      <public>1</public>
+    </instance>
+  </stream>
+</ices>

@@ -23,15 +23,20 @@ services:
       - ./audio:/output
     restart: unless-stopped
 
-  # icecast:
-  #   image: tlan16/icecast
-  #   container_name: icecast
-  #   ports:
-  #   - 8000:8000
-  # ices:
-  #   build: ./ices2/.
-  #   container_name: ices2
-  #   volumes:
-  #     - ./ices2/ices_playlist.xml:/etc/ices2/
-  #     - ./downloads/audio:/var/www/ices2/audio
+  icecast:
+    image: tlan16/icecast
+    container_name: icecast
+    volumes:
+      - ./icecast/icecast.xml:/etc/icecast.xml
+    ports:
+    - 8000:8000
+
+  ices2:
+    depends_on:
+      - icecast
+    build: ./ices2/.
+    container_name: ices2
+    volumes:
+      - ./ices2/ices-playlist.xml:/etc/ices2/ices-playlist.xml
+      - ./audio:/etc/ices2/audio
 

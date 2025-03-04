@@ -35,7 +35,7 @@ inotifywait -m -e close_write,moved_to --format '%w%f' "$INPUT_DIR" | while read
             log "Conversion successful: $file -> $output_file"
             
             # Append the filename to the tracklist file
-            echo "./$filename_noext.ogg" >> "$TRACKLIST_FILE"
+            echo "/etc/ices2/audio/$filename_noext.ogg" >> "$TRACKLIST_FILE"
             
             # Delete original file after conversion
             rm "$file"
