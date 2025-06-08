@@ -43,8 +43,12 @@ telegram-main/
    git clone https://github.com/yourusername/telegram-main.git
    cd telegram-main
    ```
-2. Create a .env file with the necessary environment variables (e.g., Telegram bot token).
-3. Launch the stack:
+2. Create a .env file with the necessary environment variables.
+```bash 
+DOMAIN=example.org
+BOT_TOKEN=botfather API TOKEN
+```
+5. Launch the stack:
 ```bash
 docker compose up -d
 ```
