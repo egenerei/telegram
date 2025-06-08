@@ -3,8 +3,7 @@ services:
     build: ./python/.
     container_name: tele
     restart: unless-stopped
-    env_file: 
-      - "python/token.env"
+    env_file:
       - ".env"
     volumes:
     - ./downloads:/app/downloads
