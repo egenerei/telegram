@@ -1,20 +1,20 @@
-# Telegram Streaming Bot
+# 🤖 Telegram Streaming Bot
 
 A containerized Telegram bot system that converts audio/video files using FFmpeg and streams them via Icecast. The bot is built in Python and interacts with Telegram's API to enable media streaming directly from Telegram chats.
 
 ---
 
-## Features
+## 🚀 Features
 
-- Telegram bot interface for receiving and processing media (`python/bot.py`)
-- FFmpeg container for audio/video format conversion
-- Icecast and Ices2 setup for streaming media over HTTP
-- Optional NGINX reverse proxy configuration
-- Orchestrated with Docker Compose for easy deployment
+- 🤖 Telegram bot interface for receiving and processing media (`python/bot.py`)
+- 🎞️ FFmpeg container for audio/video format conversion
+- 📡 Icecast and Ices2 setup for streaming media over HTTP
+- 🌐 Optional NGINX reverse proxy configuration
+- 🐳 Orchestrated with Docker Compose for easy deployment
 
 ---
 
-## Project Structure
+## 🗂️ Project Structure
 
 ```
 telegram-main/
@@ -36,15 +36,15 @@ telegram-main/
 
 ---
 
-## Prerequisites
+## 🛠️ Prerequisites
 
-- Docker
-- Docker Compose
-- A valid Telegram bot token (from BotFather)
+- 🐳 Docker
+- 📦 Docker Compose
+- 🤖 A valid Telegram bot token (from BotFather)
 
 ---
 
-## Getting Started
+## ⚡ Getting Started
 
 1. **Clone the repository:**
 
@@ -71,7 +71,7 @@ telegram-main/
 
 ---
 
-## Configuration Details
+## ⚙️ Configuration Details
 
 - `icecast/icecast.xml`: Configure your Icecast streaming server (ports, passwords, mount points).
 - `ices2/ices-playlist.xml`: Playlist metadata and stream details.
@@ -81,12 +81,12 @@ telegram-main/
 
 ---
 
-## License
+## 📝 License
 
 This project is licensed under the MIT License.
 
 ---
 
-## Author
+## 👤 Author
 
 Jorge Del Rey Prieto
