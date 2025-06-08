@@ -48,7 +48,7 @@ telegram-main/
 DOMAIN=example.org
 BOT_TOKEN=botfather API TOKEN
 ```
-5. Launch the stack:
+3. Launch the stack:
 ```bash
 docker compose up -d
 ```
